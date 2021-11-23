@@ -16,11 +16,18 @@ virtualenv venv --python=python3
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+References
+==================
+- Referenced my own index.html from assignment 4: https://github.com/hyunseo6579/CMPUT404-assignment-ajax/blob/master/static/index.html
+- Referenced https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/chat.py for sockets.py
+- Referenced https://stackoverflow.com/a/2741381 for looping through json
+- Referenced https://stackoverflow.com/a/10655006 for obtaining list of keys and values from dictionary in JavaScript
 
 Contributors / Licensing
 ========================
 
 Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle.
+Modifications for the assignment LICENSE'D under Hyunseo Jho.
 
 freetests.py is LICENSE'D under a BSD-like license:
 
