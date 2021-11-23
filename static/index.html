@@ -45,16 +45,19 @@ debug("Test");
 world = {};
 
 //XXX: TODO Make this prettier!
+// from previous assignment
 function drawCircle(context,entity) {
     with(context) {
-        beginPath();                
-        lineWidth = 3;
+        beginPath();    
         var x = entity["x"];
         var y = entity["y"];
         //moveTo(x,y);
-        fillStyle = entity["colour"];
-        strokeStyle = fillStyle;
+        var grd = context.createRadialGradient(x,y, 15, x,y, (entity["radius"])?entity["radius"]:50);
+        grd.addColorStop(0, "white");
+        grd.addColorStop(1, "blue");
         arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
+        fillStyle = grd
+        fill()
         stroke();                                
     }
 }
@@ -124,8 +127,9 @@ function getPosition(e) {
 function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
-    //XXX: Send a XHTML Request that updates the entity you just modified!
+    socket.send(JSON.stringify({[entity]:data}))
 }
+
 var counter = 0;
 function addEntityWithoutName(data) {
     var name = "X"+(counter++)%100;
@@ -240,7 +244,7 @@ mouse.mouseuppers.push(function(x,y,clicked,e) {
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour':'green',
-                          'radius':10});
+                          'radius':30});
 });
 
 
@@ -261,7 +265,13 @@ function wsSetup() {
     socket.onmessage = function(msg) {  
         try {
             debug("WebSocket Recv:" + msg.data);
-            //XXX: TODO What are you going to do here?            
+            //XXX: TODO What are you going to do here? 
+            let data = JSON.parse(msg.data);
+            // reference: https://stackoverflow.com/a/10655006
+            let k = Object.keys(data)[0];
+            let v = Object.values(data)[0];
+            world[k] = v;
+            drawNextFrame();
         } catch (e) {
             alert("socket on message: " + e);
         }
