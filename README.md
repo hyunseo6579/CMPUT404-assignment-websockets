@@ -23,6 +23,10 @@ References
 - Referenced https://stackoverflow.com/a/2741381 for looping through json
 - Referenced https://stackoverflow.com/a/10655006 for obtaining list of keys and values from dictionary in JavaScript
 
+Collaborators
+==========================
+- Helped Michelle Wang with testing after finishing my assignment.
+
 Contributors / Licensing
 ========================
 
